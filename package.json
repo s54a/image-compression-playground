@@ -1,9 +1,8 @@
 {
   "name": "image-compression-playground",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "type": "module",
-  "packageManager": "bun@1.4.3",
   "scripts": {
     "prepare": "bun scripts/prepare-worker.ts",
     "dev": "bun run prepare && vite --port 3005",
@@ -25,5 +24,6 @@
     "@vitejs/plugin-react": "latest",
     "typescript": "7.0.2",
     "vite": "8.3.4"
-  }
+  },
+  "packageManager": "bun@1.4.3"
 }

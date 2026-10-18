@@ -4,18 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f7f9fc" />
-    <meta name="description" content="Try image compression locally in your browser. Compare the original and compressed image, then download the result." />
+    <meta
+      name="description"
+      content="Try image compression locally in your browser. Compare the original and compressed image, then download the result."
+    />
     <script>
       (() => {
         let theme;
-        try { theme = localStorage.getItem("compression-theme"); } catch {}
+        try {
+          theme = localStorage.getItem("compression-theme");
+        } catch {}
         if (theme !== "light" && theme !== "dark") {
           theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
         document.documentElement.dataset.theme = theme;
         document.documentElement.style.colorScheme = theme;
         document.documentElement.style.backgroundColor = theme === "dark" ? "#151a23" : "#f7f9fc";
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", theme === "dark" ? "#151a23" : "#f7f9fc");
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", theme === "dark" ? "#151a23" : "#f7f9fc");
       })();
     </script>
     <title>Image compression playground</title>
