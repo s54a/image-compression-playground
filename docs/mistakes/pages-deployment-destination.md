@@ -14,4 +14,4 @@ The command name was assumed to guarantee its hosting destination, and Workers c
 
 ## Learning and required prevention
 
-Check the actual returned hostname and project type. For explicitly requested Pages hosting, use the Pages creation compatibility flag when required. Keep Pages configuration in wrangler.jsonc and any retained Worker configuration in a separate file selected by its deploy command. Verify the pages.dev URL before reporting deployment complete.
+Check the actual returned hostname and project type. For explicitly requested Pages hosting, use the Pages creation compatibility flag when required. Keep Pages configuration in wrangler.jsonc and any retained Worker configuration in a separate file selected by its deploy command. Pages rejects account_id in its configuration; set CLOUDFLARE_ACCOUNT_ID in the deploy command instead. Verify the pages.dev URL before reporting deployment complete.
