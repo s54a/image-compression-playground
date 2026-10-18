@@ -4,3 +4,5 @@ public/vendor/
 *.tsbuildinfo
 .codex/test-logs/
 .env*
+
+.wrangler/
