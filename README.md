@@ -11,7 +11,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-Open http://localhost:5176. The strict port prevents silently moving to another port.
+Open http://localhost:3005. The strict port prevents silently moving to another port.
 
 ```sh
 bun run typecheck
@@ -19,7 +19,7 @@ bun run build
 bun run preview
 ```
 
-Preview serves the production build at http://localhost:4176. Build includes TypeScript checking. Automated tests and admin E2E are deferred.
+Preview serves the production build at http://localhost:4005. Build includes TypeScript checking. Automated tests and admin E2E are deferred.
 
 ## Try it on a phone
 
@@ -27,7 +27,7 @@ Preview serves the production build at http://localhost:4176. Build includes Typ
 bun run dev --host 0.0.0.0
 ```
 
-Connect your phone and computer to the same Wi-Fi network. Open `http://<computer-LAN-IP>:5176` on the phone. Allow local network access through the computer's firewall if needed. Do not expose the dev server to the public internet.
+Connect your phone and computer to the same Wi-Fi network. Open `http://<computer-LAN-IP>:3005` on the phone. Allow local network access through the computer's firewall if needed. Do not expose the dev server to the public internet.
 
 Choose or drop one JPEG, PNG, or still WebP. The defaults are WebP, a 200 KB target, and a 1,600 px maximum dimension. Compress, compare dimensions and actual bytes, then download. Try a transparent PNG with WebP and JPEG, a large photo, an image already below the target, cancellation, changing the selected file during compression, and an unsupported GIF or HEIC. Check the result at full size before using it.
 
