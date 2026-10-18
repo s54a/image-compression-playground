@@ -109,7 +109,8 @@ export function useImageCompression() {
     reset();
     const currentTask = task.current;
     try {
-      if (selectedFiles.length !== 1) throw new Error("Choose one image at a time.");
+      if (selectedFiles.length !== 1)
+        throw new Error("Choose one image at a time.");
       const file = validateImageFile(selectedFiles[0]);
       setStatus("loading");
       const url = URL.createObjectURL(file);
@@ -122,7 +123,11 @@ export function useImageCompression() {
       if (task.current !== currentTask) return;
       if (sourceUrl.current) URL.revokeObjectURL(sourceUrl.current);
       sourceUrl.current = null;
-      setError(cause instanceof Error ? cause.message : "This image could not be opened.");
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : "This image could not be opened.",
+      );
       setStatus("error");
     }
   }
@@ -174,7 +179,9 @@ export function useImageCompression() {
       });
       if (task.current !== currentTask) return;
       if (file.type !== format)
-        throw new Error("This browser could not encode the selected format. Try JPEG or PNG.");
+        throw new Error(
+          "This browser could not encode the selected format. Try JPEG or PNG.",
+        );
       const url = URL.createObjectURL(file);
       resultUrl.current = url;
       const imageDimensions = await readImageDimensions(url);
@@ -212,7 +219,8 @@ export function useImageCompression() {
   }
 
   const busy = status === "compressing";
-  const reduction = source && result ? (1 - result.file.size / source.file.size) * 100 : 0;
+  const reduction =
+    source && result ? (1 - result.file.size / source.file.size) * 100 : 0;
   const settingsValid =
     Number(target) >= 1 &&
     Number(target) <= 20000 &&

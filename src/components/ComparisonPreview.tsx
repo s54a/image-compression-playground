@@ -123,9 +123,7 @@ export function ComparisonPreview({
             </p>
           </div>
           <div className={`image-stat ${result ? "result-stat" : ""}`}>
-            <h3>
-              Compressed {result && <span>{result.file.type.replace("image/", "")}</span>}
-            </h3>
+            <h3>Compressed {result && <span>{result.file.type.replace("image/", "")}</span>}</h3>
             <strong>{result ? formatSize(result.file.size) : "—"}</strong>
             <p>
               {result
@@ -152,15 +150,19 @@ export function ComparisonPreview({
             <strong>{reduction >= 0 ? "Ready to go." : "This version is larger."}</strong>
             <span>Actual output: {result.file.size.toLocaleString()} bytes</span>
           </p>
-          <a className="primary-button download-button" href={result.url} download={result.downloadName}>
+          <a
+            className="primary-button download-button"
+            href={result.url}
+            download={result.downloadName}
+          >
             Download image
           </a>
         </div>
       )}
       {result && result.file.size > result.targetBytes && (
         <p className="warning" role="status">
-          The result is above the {formatSize(result.targetBytes)} target. Try a smaller longest side
-          or a different output format.
+          The result is above the {formatSize(result.targetBytes)} target. Try a smaller longest
+          side or a different output format.
         </p>
       )}
       <p className="comparison-footnote">

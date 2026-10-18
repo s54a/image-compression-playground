@@ -1,6 +1,21 @@
-export type ImageInfo = { file: File; url: string; width: number; height: number };
-export type CompressionResult = ImageInfo & { elapsed: number; targetBytes: number; downloadName: string };
-export type CompressionStatus = "idle" | "loading" | "compressing" | "done" | "cancelled" | "error";
+export type ImageInfo = {
+  file: File;
+  url: string;
+  width: number;
+  height: number;
+};
+export type CompressionResult = ImageInfo & {
+  elapsed: number;
+  targetBytes: number;
+  downloadName: string;
+};
+export type CompressionStatus =
+  | "idle"
+  | "loading"
+  | "compressing"
+  | "done"
+  | "cancelled"
+  | "error";
 export type ImageFormat = "image/webp" | "image/jpeg" | "image/png";
 export type CompressionLevel = "detail" | "balanced" | "small";
 export const formatExtensions: Record<ImageFormat, string> = {
@@ -50,12 +65,19 @@ export function formatSize(bytes: number) {
     : `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 }
 
-export function readImageDimensions(url: string): Promise<{ width: number; height: number }> {
+export function readImageDimensions(
+  url: string,
+): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    img.onload = () =>
+      resolve({ width: img.naturalWidth, height: img.naturalHeight });
     img.onerror = () =>
-      reject(new Error("This image could not be opened. Try another JPEG, PNG, or WebP file."));
+      reject(
+        new Error(
+          "This image could not be opened. Try another JPEG, PNG, or WebP file.",
+        ),
+      );
     img.src = url;
   });
 }
@@ -69,14 +91,22 @@ export function validateImageFile(file: File): File {
     webp: "image/webp",
   };
   if (file.type === "image/gif" || extension === "gif")
-    throw new Error("GIF images are not supported. Choose a still JPEG, PNG, or WebP image.");
+    throw new Error(
+      "GIF images are not supported. Choose a still JPEG, PNG, or WebP image.",
+    );
   if (file.type.includes("hei") || extension === "heic" || extension === "heif")
-    throw new Error("HEIC and HEIF images are not supported. Export the photo as JPEG first.");
+    throw new Error(
+      "HEIC and HEIF images are not supported. Export the photo as JPEG first.",
+    );
   if (!file.size) throw new Error("This file is empty. Choose another image.");
   if (file.size > 20 * 1024 * 1024)
     throw new Error("This image is over 20 MB. Choose a smaller file.");
   const type = file.type || (extension ? supported[extension] : undefined);
   if (type !== "image/jpeg" && type !== "image/png" && type !== "image/webp")
-    throw new Error("Choose a JPEG, PNG, or WebP image. Other formats are not supported.");
-  return file.type ? file : new File([file], file.name, { type, lastModified: file.lastModified });
+    throw new Error(
+      "Choose a JPEG, PNG, or WebP image. Other formats are not supported.",
+    );
+  return file.type
+    ? file
+    : new File([file], file.name, { type, lastModified: file.lastModified });
 }

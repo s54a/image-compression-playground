@@ -77,7 +77,10 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
             <path d="m3 16 5-5 5 5 3-3 5 5" />
           </svg>
         )}
-        <button className="secondary-button" onClick={() => picker.current?.click()}>
+        <button
+          className="secondary-button"
+          onClick={() => picker.current?.click()}
+        >
           {source ? "Replace image" : "Choose image"}
         </button>
         {!source && <p>or drop it here</p>}
@@ -136,7 +139,8 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
           onChange={(event) => changeQuality(Number(event.target.value))}
         />
         <p id="quality-help" className="help">
-          Compression may reduce quality further to reach the target. PNG is lossless.
+          Compression may reduce quality further to reach the target. PNG is
+          lossless.
         </p>
       </div>
       <div className="settings">
@@ -181,7 +185,11 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
             disabled={busy}
             onChange={(event) => {
               const value = event.target.value;
-              if (value === "image/webp" || value === "image/jpeg" || value === "image/png") {
+              if (
+                value === "image/webp" ||
+                value === "image/jpeg" ||
+                value === "image/png"
+              ) {
                 changeFormat(value);
               }
             }}
@@ -193,7 +201,8 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
         </label>
       </div>
       <p className="help resize-help">
-        Keeps the aspect ratio. Never enlarges your image. Target size is a goal, not a guarantee.
+        Keeps the aspect ratio. Never enlarges your image. Target size is a
+        goal, not a guarantee.
       </p>
       <button
         className="primary-button compress-button"
@@ -210,20 +219,32 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
               <span>Compressing on your device</span>
               <span>{Math.round(progress)}%</span>
             </div>
-            <progress value={progress} max="100" aria-label="Compression progress" />
+            <progress
+              value={progress}
+              max="100"
+              aria-label="Compression progress"
+            />
             <button className="text-button cancel-button" onClick={cancel}>
               Cancel compression
             </button>
           </>
         )}
-        {status === "cancelled" && <p>Compression cancelled. Your original is still here.</p>}
-        {settingsChanged && !busy && <p>Settings changed. Compress again to see the result.</p>}
+        {status === "cancelled" && (
+          <p>Compression cancelled. Your original is still here.</p>
+        )}
+        {settingsChanged && !busy && (
+          <p>Settings changed. Compress again to see the result.</p>
+        )}
         {error && (
           <p className="error" role="alert">
             {error}
           </p>
         )}
-        {result && <p className="success">Done in {(result.elapsed / 1000).toFixed(2)} seconds.</p>}
+        {result && (
+          <p className="success">
+            Done in {(result.elapsed / 1000).toFixed(2)} seconds.
+          </p>
+        )}
       </div>
       <p className="local-note">
         <svg
