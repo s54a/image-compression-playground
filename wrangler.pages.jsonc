@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "image-compression-playground",
+  "account_id": "9ac6958d72d78a7fba6f97e139bceec4",
+  "compatibility_date": "2026-10-19",
+  "pages_build_output_dir": "./dist"
+}

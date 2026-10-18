@@ -9,8 +9,10 @@
     "build": "bun run prepare && tsc -b && vite build",
     "preview": "vite preview --port 4005 --strictPort",
     "typecheck": "tsc -b",
-    "deploy": "bun run build && pnpm dlx wrangler@4.151.1 deploy",
-    "deploy:dry-run": "bun run build && pnpm dlx wrangler@4.151.1 deploy --dry-run"
+    "deploy": "bun run deploy:pages",
+    "deploy:pages": "bun run build && pnpm dlx wrangler@4.151.1 pages deploy dist --config wrangler.pages.jsonc --project-name image-compression-playground --branch main",
+    "deploy:worker": "bun run build && pnpm dlx wrangler@4.151.1 deploy --config wrangler.jsonc",
+    "deploy:worker:dry-run": "bun run build && pnpm dlx wrangler@4.151.1 deploy --config wrangler.jsonc --dry-run"
   },
   "dependencies": {
     "browser-image-compression": "2.0.2",
