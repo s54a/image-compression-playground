@@ -1,0 +1,27 @@
+{
+  "name": "image-compression-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "bun@1.4.3",
+  "scripts": {
+    "prepare": "bun scripts/prepare-worker.ts",
+    "dev": "bun run prepare && vite --port 5176 --strictPort",
+    "build": "bun run prepare && tsc -b && vite build",
+    "preview": "vite preview --port 4176 --strictPort",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "browser-image-compression": "2.0.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}
