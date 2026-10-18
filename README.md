@@ -46,7 +46,7 @@ Try a transparent PNG with WebP and JPEG, a large photo, an image already below 
 
 ## Cloudflare deployment
 
-The Pages project is `image-compression-playground`, configured in `wrangler.pages.jsonc`, with production branch `main`. Deployments upload the prebuilt `dist/` directory. No database, image storage, or secrets are required.
+The Pages project is `image-compression-playground`, configured in `wrangler.jsonc`, with production branch `main`. Its public URL is https://image-compression-playground.pages.dev. Deployments upload the prebuilt `dist/` directory. No database, image storage, or secrets are required.
 
 ```sh
 bun run deploy
@@ -54,6 +54,8 @@ bun run deploy
 
 The command builds first, then uses pnpm to run the pinned Wrangler version. Deployment requires Cloudflare login for the configured account and an existing Pages project with that name. This is a direct-upload project; GitHub pushes run the build workflow but do not publish to Pages automatically.
 
-The existing static Worker remains available at https://image-compression-playground.s54a.workers.dev. Use `bun run deploy:worker` to update it or `bun run deploy:worker:dry-run` to check its deployment bundle. Its configuration stays in `wrangler.jsonc`.
+Pages uses the default configuration filename; its CLI does not support `--config`. When this project was created, Wrangler required `pages project create image-compression-playground --production-branch main --force` to create a Pages project instead of redirecting creation to Workers. The project now exists, so subsequent Pages deployments use the command above.
+
+The existing static Worker remains available at https://image-compression-playground.s54a.workers.dev. Use `bun run deploy:worker` to update it or `bun run deploy:worker:dry-run` to check its deployment bundle. Its configuration stays in `wrangler.worker.jsonc`.
 
 The GitHub workflow installs the lockfile and builds on pushes and pull requests to `main`; it runs no tests. This repository runs independently of the fireworks admin app.
