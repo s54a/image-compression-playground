@@ -33,6 +33,8 @@ Choose or drop one JPEG, PNG, or still WebP, up to 20 MB. Choose High detail, Ba
 
 Compress, drag the divider to compare the original and result in the same frame, then download. The divider also supports keyboard arrow keys. Changing compression settings clears the previous result until you compress again. The theme button switches between light and dark mode and remembers your choice; the first visit follows your system setting.
 
+When WebP export is unavailable, as in Safari/WebKit and most iPhone/iPad browsers, a WebP selection automatically uses JPEG for JPEG inputs or PNG for other inputs to preserve possible transparency. The app checks actual encoding support rather than the browser name. The result label and download extension show the actual output format. PNG may stay above the requested size target.
+
 Try a transparent PNG with WebP and JPEG, a large photo, an image already below the target, cancellation, changing the selected file during compression, and an unsupported GIF or HEIC. Check the result at full size before using it.
 
 ## Limits and privacy

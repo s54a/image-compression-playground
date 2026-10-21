@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
+import { outputFormat } from "../lib/output-format";
 import {
   formatExtensions,
   readImageDimensions,
@@ -17,6 +18,7 @@ export function useImageCompression() {
   const [result, setResult] = useState<CompressionResult | null>(null);
   const [status, setStatus] = useState<CompressionStatus>("idle");
   const [error, setError] = useState("");
+  const [formatNotice, setFormatNotice] = useState("");
   const [progress, setProgress] = useState(0);
   const [target, setTarget] = useState("200");
   const [maxDimension, setMaxDimension] = useState("1920");
@@ -47,6 +49,7 @@ export function useImageCompression() {
       setSettingsChanged(true);
     }
     setError("");
+    setFormatNotice("");
     setStatus("idle");
   }
 
@@ -89,6 +92,7 @@ export function useImageCompression() {
     setSource(null);
     setStatus("idle");
     setError("");
+    setFormatNotice("");
     setProgress(0);
     setSettingsChanged(false);
   }
@@ -155,11 +159,18 @@ export function useImageCompression() {
     const abortController = new AbortController();
     controller.current = abortController;
     setError("");
+    setFormatNotice("");
     setProgress(0);
     setSettingsChanged(false);
     setStatus("compressing");
     const started = performance.now();
     try {
+      const selectedFormat = await outputFormat(format, source.file.type);
+      if (task.current !== currentTask) return;
+      if (selectedFormat !== format)
+        setFormatNotice(
+          `WebP export is unavailable in this browser. Using ${selectedFormat === "image/jpeg" ? "JPEG" : "PNG to preserve transparency"} instead.`,
+        );
       const file = await imageCompression(source.file, {
         maxSizeMB: targetKB / 1024,
         maxWidthOrHeight: maxPixels,
@@ -169,7 +180,7 @@ export function useImageCompression() {
           `${import.meta.env.BASE_URL}vendor/browser-image-compression.js`,
           window.location.href,
         ).href,
-        fileType: format,
+        fileType: selectedFormat,
         maxIteration: 20,
         preserveExif: false,
         signal: abortController.signal,
@@ -178,7 +189,7 @@ export function useImageCompression() {
         },
       });
       if (task.current !== currentTask) return;
-      if (file.type !== format)
+      if (!file.size || file.type !== selectedFormat)
         throw new Error(
           "This browser could not encode the selected format. Try JPEG or PNG.",
         );
@@ -193,7 +204,7 @@ export function useImageCompression() {
         ...imageDimensions,
         elapsed: performance.now() - started,
         targetBytes: targetKB * 1024,
-        downloadName: `${baseName}-compressed.${formatExtensions[format]}`,
+        downloadName: `${baseName}-compressed.${formatExtensions[selectedFormat]}`,
       });
       setProgress(100);
       setStatus("done");
@@ -233,6 +244,7 @@ export function useImageCompression() {
     result,
     status,
     error,
+    formatNotice,
     progress,
     target,
     maxDimension,

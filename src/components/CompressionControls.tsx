@@ -12,6 +12,7 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
     result,
     status,
     error,
+    formatNotice,
     progress,
     target,
     maxDimension,
@@ -200,6 +201,11 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
           </select>
         </label>
       </div>
+      <p className="help">
+        Safari/WebKit browsers, including most iPhone and iPad browsers, cannot
+        export WebP. We automatically use JPEG or PNG instead. PNG preserves
+        transparency but may produce larger files.
+      </p>
       <p className="help resize-help">
         Keeps the aspect ratio. Never enlarges your image. Target size is a
         goal, not a guarantee.
@@ -212,6 +218,7 @@ export function CompressionControls({ compression }: CompressionControlsProps) {
         {busy ? "Compressing…" : result ? "Compress again" : "Compress image"}
       </button>
       <div className="feedback" aria-live="polite">
+        {formatNotice && <p>{formatNotice}</p>}
         {status === "loading" && <p>Opening image…</p>}
         {busy && (
           <>
